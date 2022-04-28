@@ -1,34 +1,39 @@
 <template>
   <div class="nearby">
     <h3 class="nearby__title">附近店铺</h3>
-    <ShopInfo :nearby-list="nearbyList" />
+    <router-link
+      v-for="item in nearbyList"
+      :key="item._id"
+      :to="`/shop/${item._id}`"
+    >
+      <ShopInfo :item="item" />
+    </router-link>
   </div>
 </template>
 
 <script>
-import ShopInfo from '@/components/ShopInfos'
 import { ref } from 'vue'
-import { get } from '@/utils/request'
+import { get } from '../../utils/request'
+import ShopInfo from '../../components/ShopInfo'
 
 const useNearbyListEffect = () => {
-  const nearbyList = ref([])
+  const nearbyList = ref([]);
   const getNearbyList = async () => {
     const result = await get('/api/shop/hot-list')
     if (result?.errno === 0 && result?.data?.length) {
       nearbyList.value = result.data
     }
-    // console.log(nearbyList)
   }
-  return { nearbyList, getNearbyList }
+  return { nearbyList, getNearbyList}
 }
+
 export default {
   name: 'Nearby',
   components: { ShopInfo },
-  setup () {
-    const { nearbyList, getNearbyList } = useNearbyListEffect()
-    getNearbyList()
-    // setTimeout(() => console.log(nearbyList.value), 1000)
-    return { nearbyList }
+  setup() {
+    const { nearbyList, getNearbyList } = useNearbyListEffect();
+    getNearbyList();
+    return { nearbyList };
   }
 }
 </script>
@@ -42,6 +47,8 @@ export default {
     font-weight: normal;
     color: $content-fontcolor;
   }
-
+  a {
+    text-decoration: none;
+  }
 }
 </style>

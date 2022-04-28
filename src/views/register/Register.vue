@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router';
 import { reactive, toRefs } from 'vue'
 import { post } from '../../utils/request'
 import Toast, { useToastEffect } from '../../components/Toast'
@@ -63,33 +63,28 @@ const useRegisterEffect = (showToast) => {
   }
 
   const { username, password, ensurement } = toRefs(data)
-  return { username, password, ensurement, handleRegister }
+  return { username, password, ensurement, handleRegister}
 }
 
 // 处理登陆跳转
 const useLoginEffect = () => {
   const router = useRouter()
   const handleLoginClick = () => {
-    router.push({ name: 'Login' })
+    router.push({ name: 'Login'});
   }
   return { handleLoginClick }
 }
 
 export default {
   name: 'Register',
-  components: { Toast },
-  setup () {
+  components: { Toast }, 
+  setup() {
     const { show, toastMessage, showToast } = useToastEffect()
     const { username, password, ensurement, handleRegister } = useRegisterEffect(showToast)
-    const { handleLoginClick } = useLoginEffect()
+    const { handleLoginClick } = useLoginEffect();
     return {
-      username,
-      password,
-      ensurement,
-      show,
-      toastMessage,
-      handleRegister,
-      handleLoginClick
+      username, password, ensurement, show, toastMessage,
+      handleRegister,handleLoginClick
     }
   }
 }
@@ -97,57 +92,51 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../style/viriables.scss';
-
 .wrapper {
   position: absolute;
   top: 50%;
   left: 0;
   right: 0;
   transform: translateY(-50%);
-
   &__img {
     display: block;
     margin: 0 auto .4rem auto;
     width: .66rem;
     height: .66rem;
   }
-
   &__input {
     height: .48rem;
     margin: 0 .4rem .16rem .4rem;
     padding: 0 .16rem;
     background: #F9F9F9;
-    border: 1px solid rgba(0, 0, 0, 0.10);
-    border-radius: 6px;
-    border-radius: 6px;
-
+    border: .01rem solid rgba(0,0,0,0.10);
+    border-radius: .06rem;
+    border-radius: .06rem;
     &__content {
-      line-height: .48rem;
+      margin-top: .12rem;
+      line-height: .22rem;
       border: none;
       outline: none;
       width: 100%;
       background: none;
       font-size: .16rem;
       color: $content-notice-fontcolor;
-
       &::placeholder {
         color: $content-notice-fontcolor;
       }
     }
   }
-
   &__register-button {
     margin: .32rem .4rem .16rem .4rem;
     line-height: .48rem;
-    background: #0091FF;
-    box-shadow: 0 .04rem .08rem 0 rgba(0, 145, 255, 0.32);
+    background: $btn-bgColor;
+    box-shadow: 0 .04rem .08rem 0 rgba(0,145,255,0.32);
     border-radius: .04rem;
     border-radius: .04rem;
-    color: #fff;
+    color: $bgColor;
     font-size: .16rem;
     text-align: center;
   }
-
   &__register-link {
     text-align: center;
     font-size: .14rem;
